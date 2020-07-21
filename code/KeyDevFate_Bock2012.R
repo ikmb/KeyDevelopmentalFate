@@ -1,5 +1,5 @@
 library("readxl")
-setwd("~/Desktop/KeyDevelopmentalFate/data/")
+setwd("~/Desktop/KeyDevelopmentalFate-master/data/")
 data.table = read_excel("Bock2012_1-s2.0-S1097276512005448-mmc3.xlsx",2)
 data.table = noquote(data.table)
 data.table = data.table[!is.na(data.table$HSC) & !is.na(data.table$MPP1) & !is.na(data.table$MPP2) & !is.na(data.table$CLP) & !is.na(data.table$CD4)
