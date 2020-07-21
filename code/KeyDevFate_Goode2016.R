@@ -1,4 +1,4 @@
-setwd("~/Desktop/KeyDevelopmentalFate/data/")
+setwd("~/Desktop/KeyDevelopmentalFate-master/data/")
 data = read.delim("Goode2016_GSE69080_expression_cufflinks.txt",sep="\t")
 exp.data = data[,-c(1,2,4)]
 #exp.data = exp.data[!is.na(exp.data$ESC) & !is.na(exp.data$MES) & !is.na(exp.data$HB) & !is.na(exp.data$HE) & !is.na(exp.data$HP) & !is.na(exp.data$MAC),]
