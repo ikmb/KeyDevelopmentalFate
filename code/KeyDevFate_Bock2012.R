@@ -42,11 +42,25 @@ Eryth.KP = data.table[(HSC < MPP1) & (MPP1 < MPP2) & (MPP2 < CMP) & (CMP > GMP) 
 Granu.KP = data.table[(HSC < MPP1) & (MPP1 < MPP2) & (MPP2 < CMP) & (CMP < GMP) & (CMP > MEP) & (MEP > Eryth) & (GMP < Granu) & (GMP > Mono),c(7,8,9,10,12,13,14,18,19,20)]
 Mono.KP = data.table[(HSC < MPP1) & (MPP1 < MPP2) & (MPP2 < CMP) & (CMP < GMP) & (CMP > MEP) & (MEP > Eryth) & (GMP > Granu) & (GMP < Mono),c(7,8,9,10,12,13,14,18,19,20)]                    
 
-df = list(HSC.KP[,1],HSC.KP[,1],MPP2.KP[,1],CLP.KP[,1],CMP.KP[,1],MEP.KP[,1],GMP.KP[,1],CD4.KP[,1],CD8.KP[,1],BCell.KP[,1],Eryth.KP[,1],Granu.KP[,1],Mono.KP[,1])
-names(df) = c("'HSC'","'MPP1'","'MPP2'","'CLP'","'CMP'","'MEP'","'GMP'","'CD4'","'CD8'","'BCell'","'Eryth'","'Granu'","'Mono'")
-for(i in 1:13){
-  write.table(t(noquote(as.character(unlist(df[i])))),"./../result/Second_study/1st_layer/1stLayer_candidates.csv",sep = ", ",row.names = names(df)[i],quote = FALSE,col.names = FALSE,append = TRUE)
-}
+write.table(HSC.KP,"./../result/Second_study/1st_layer/1stLayer_HSC_candidates.csv",col.names = TRUE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(MPP1.KP,"./../result/Second_study/1st_layer/1stLayer_MPP1_candidates.csv",col.names = TRUE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(MPP2.KP,"./../result/Second_study/1st_layer/1stLayer_MPP2_candidates.csv",col.names = TRUE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(CLP.KP,"./../result/Second_study/1st_layer/1stLayer_CLP_candidates.csv",col.names = TRUE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(CMP.KP,"./../result/Second_study/1st_layer/1stLayer_CMP_candidates.csv",col.names = TRUE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(MEP.KP,"./../result/Second_study/1st_layer/1stLayer_MEP_candidates.csv",col.names = TRUE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(GMP.KP,"./../result/Second_study/1st_layer/1stLayer_GMP_candidates.csv",col.names = TRUE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(CD4.KP,"./../result/Second_study/1st_layer/1stLayer_CD4_candidates.csv",col.names = TRUE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(CD8.KP,"./../result/Second_study/1st_layer/1stLayer_CD8_candidates.csv",col.names = TRUE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(BCell.KP,"./../result/Second_study/1st_layer/1stLayer_BCell_candidates.csv",col.names = TRUE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(Eryth.KP,"./../result/Second_study/1st_layer/1stLayer_Eryth_candidates.csv",col.names = TRUE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(Granu.KP,"./../result/Second_study/1st_layer/1stLayer_Granu_candidates.csv",col.names = TRUE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(Mono.KP,"./../result/Second_study/1st_layer/1stLayer_Mono_candidates.csv",col.names = TRUE,row.names = FALSE,quote = FALSE,sep = "\t")
+
+#df = list(HSC.KP[,1],HSC.KP[,1],MPP2.KP[,1],CLP.KP[,1],CMP.KP[,1],MEP.KP[,1],GMP.KP[,1],CD4.KP[,1],CD8.KP[,1],BCell.KP[,1],Eryth.KP[,1],Granu.KP[,1],Mono.KP[,1])
+#names(df) = c("HSC","MPP1","MPP2","CLP","CMP","MEP","GMP","CD4","CD8","BCell","Eryth","Granu","Mono")
+#for(i in 1:13){
+#  write.table(t(noquote(as.character(unlist(df[i])))),"./../result/Second_study/1st_layer/1stLayer_candidates.csv",sep = ", ",row.names = names(df)[i],quote = FALSE,col.names = FALSE,append = TRUE)
+#}
 #TTRUST database as a reference for mouse TFs
 data.TF <- read.delim("./trrust_rawdata.mouse.tsv",sep = "\t",header = FALSE)
 TF.mouse <- unique(data.TF[,1])
@@ -67,7 +81,7 @@ TF.Granu <- Granu.KP[Granu.KP$geneName %in% TF.mouse,]
 TF.Mono <- Mono.KP[Mono.KP$geneName %in% TF.mouse,]
 
 df = list(TF.HSC[,1],TF.MPP1[,1],TF.MPP2[,1],TF.CLP[,1],TF.CMP[,1],TF.MEP[,1],TF.GMP[,1],TF.CD4[,1],TF.CD8[,1],TF.Bcell[,1],TF.Eryth[,1],TF.Granu[,1],TF.Mono[,1])
-names(df) = c("'HSC'","'MPP1'","'MPP2'","'CLP'","'CMP'","'MEP'","'GMP'","'CD4'","'CD8'","'BCell'","'Eryth'","'Granu'","'Mono'")
+names(df) = c("HSC","MPP1","MPP2","CLP","CMP","MEP","GMP","CD4","CD8","BCell","Eryth","Granu","Mono")
 for(i in 1:13){
   write.table(t(noquote(as.character(unlist(df[i])))),"./../result/Second_study/1st_layer/1stLayer_TFcandidates.csv",sep = ", ",row.names = names(df)[i],quote = FALSE,col.names = FALSE,append = TRUE)
 }
@@ -182,12 +196,13 @@ for(i in 1:dim(data.table)[1]){
   }
 }
 exp.correlated.genes.CD4 = data.table[arr.index.CD4,]
-TF.CG.CD4 <- correlated.genes.CD4[correlated.genes.CD4$name %in% TF.mouse,]
+TF.CG.CD4 <- unique(correlated.genes.CD4[correlated.genes.CD4$name %in% TF.mouse,1])
+write.table(TF.CG.CD4,"./../result/Second_study/2nd_layer/CD4_TFcellFate.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 correlated.genes.CD4 = correlated.genes.CD4[order(correlated.genes.CD4$value),]
 TF.CG.Regulator.CD4 = unique(data.TF[data.TF[,2] %in% correlated.genes.CD4[,1],1])
-write.table(TF.CG.Regulator.CD4,"./../result/Second_study/2nd_layer/TFregulatorCD4.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(TF.CG.Regulator.CD4,"./../result/Second_study/3rd_layer/CD4_TFregulator.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 TF.CG.Regulator.Target.CD4 = data.TF[data.TF[,2] %in% correlated.genes.CD4[,1],c(1,2)]
-write.table(TF.CG.Regulator.Target.CD4,"./../result/Second_study/3rd_layer/TFtargetCD4.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(TF.CG.Regulator.Target.CD4,"./../result/Second_study/4th_layer/CD4_TFtarget.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 #Correlation-CD8
 correlated.genes.CD8 = data.frame(name = character(0),value = numeric(0))
 colnames(correlated.genes.CD8) = c("name","value")
@@ -206,12 +221,13 @@ for(i in 1:dim(data.table)[1]){
   }
 }
 exp.correlated.genes.CD8 = data.table[arr.index.CD8,]
-TF.CG.CD8 <- correlated.genes.CD8[correlated.genes.CD8$name %in% TF.mouse,]
+TF.CG.CD8 <- unique(correlated.genes.CD8[correlated.genes.CD8$name %in% TF.mouse,1])
+write.table(TF.CG.CD8,"./../result/Second_study/2nd_layer/CD8_TFcellFate.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 correlated.genes.CD8 = correlated.genes.CD8[order(correlated.genes.CD8$value),]
 TF.CG.Regulator.CD8 = unique(data.TF[data.TF[,2] %in% correlated.genes.CD8[,1],1])
-write.table(TF.CG.Regulator.CD8,"./../result/Second_study/2nd_layer/TFregulatorCD8.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(TF.CG.Regulator.CD8,"./../result/Second_study/3rd_layer/CD8_TFregulator.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 TF.CG.Regulator.Target.CD8 = data.TF[data.TF[,2] %in% correlated.genes.CD8[,1],c(1,2)]
-write.table(TF.CG.Regulator.Target.CD8,"./../result/Second_study/3rd_layer/TFtargetCD8.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(TF.CG.Regulator.Target.CD8,"./../result/Second_study/4th_layer/CD8_TFtarget.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 ###
 #Correlation-Bcell
 correlated.genes.Bcell = data.frame(name = character(0),value = numeric(0))
@@ -229,12 +245,13 @@ for(i in 1:dim(data.table)[1]){
   }
 }
 exp.correlated.genes.Bcell = data.table[arr.index.Bcell,]
-TF.CG.Bcell <- correlated.genes.Bcell[correlated.genes.Bcell$name %in% TF.mouse,]
+TF.CG.Bcell <- unique(correlated.genes.Bcell[correlated.genes.Bcell$name %in% TF.mouse,1])
+write.table(TF.CG.Bcell,"./../result/Second_study/2nd_layer/Bcell_TFcellFate.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 correlated.genes.Bcell = correlated.genes.Bcell[order(correlated.genes.Bcell$value),]
 TF.CG.Regulator.Bcell = unique(data.TF[data.TF[,2] %in% correlated.genes.Bcell[,1],1])
-write.table(TF.CG.Regulator.Bcell,"./../result/Second_study/2nd_layer/TFregulatorBcell.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(TF.CG.Regulator.Bcell,"./../result/Second_study/3rd_layer/Bcell_TFregulator.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 TF.CG.Regulator.Target.Bcell = data.TF[data.TF[,2] %in% correlated.genes.Bcell[,1],c(1,2)]
-write.table(TF.CG.Regulator.Target.Bcell,"./../result/Second_study/3rd_layer/TFtargetBcell.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(TF.CG.Regulator.Target.Bcell,"./../result/Second_study/4th_layer/Bcell_TFtarget.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 ###
 #Correlation-Eryth
 correlated.genes.Eryth = data.frame(name = character(0),value = numeric(0))
@@ -252,12 +269,13 @@ for(i in 1:dim(data.table)[1]){
   }
 }
 exp.correlated.genes.Eryth = data.table[arr.index.Eryth,]
-TF.CG.Eryth <- correlated.genes.Eryth[correlated.genes.Eryth$name %in% TF.mouse,]
+TF.CG.Eryth <- unique(correlated.genes.Eryth[correlated.genes.Eryth$name %in% TF.mouse,1])
+write.table(TF.CG.Eryth,"./../result/Second_study/2nd_layer/Eryth_TFcellFate.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 correlated.genes.Eryth = correlated.genes.Eryth[order(correlated.genes.Eryth$value),]
 TF.CG.Regulator.Eryth = unique(data.TF[data.TF[,2] %in% correlated.genes.Eryth[,1],1])
-write.table(TF.CG.Regulator.Eryth,"./../result/Second_study/2nd_layer/TFregulatorEryth.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(TF.CG.Regulator.Eryth,"./../result/Second_study/3rd_layer/Eryth_TFregulator.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 TF.CG.Regulator.Target.Eryth = data.TF[data.TF[,2] %in% correlated.genes.Eryth[,1],c(1,2)]
-write.table(TF.CG.Regulator.Target.Eryth,"./../result/Second_study/3rd_layer/TFtargetEryth.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(TF.CG.Regulator.Target.Eryth,"./../result/Second_study/4th_layer/Eryth_TFtarget.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 ###
 #Correlation-Granu
 correlated.genes.Granu = data.frame(name = character(0),value = numeric(0))
@@ -275,12 +293,13 @@ for(i in 1:dim(data.table)[1]){
   }
 }
 exp.correlated.genes.Granu = data.table[arr.index.Granu,]
-TF.CG.Granu <- correlated.genes.Granu[correlated.genes.Granu$name %in% TF.mouse,]
+TF.CG.Granu <- unique(correlated.genes.Granu[correlated.genes.Granu$name %in% TF.mouse,1])
+write.table(TF.CG.Granu,"./../result/Second_study/2nd_layer/Granu_TFcellFate.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 correlated.genes.Granu = correlated.genes.Granu[order(correlated.genes.Granu$value),]
 TF.CG.Regulator.Granu = unique(data.TF[data.TF[,2] %in% correlated.genes.Granu[,1],1])
-write.table(TF.CG.Regulator.Granu,"./../result/Second_study/2nd_layer/TFregulatorGranu.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(TF.CG.Regulator.Granu,"./../result/Second_study/3rd_layer/Granu_TFregulator.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 TF.CG.Regulator.Target.Granu = data.TF[data.TF[,2] %in% correlated.genes.Granu[,1],c(1,2)]
-write.table(TF.CG.Regulator.Target.Granu,"./../result/Second_study/3rd_layer/TFtargetGranu.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(TF.CG.Regulator.Target.Granu,"./../result/Second_study/4th_layer/Granu_TFtarget.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 ###
 #Correlation-Mono
 correlated.genes.Mono = data.frame(name = character(0),value = numeric(0))
@@ -298,9 +317,10 @@ for(i in 1:dim(data.table)[1]){
   }
 }
 exp.correlated.genes.Mono = data.table[arr.index.Mono,]
-TF.CG.Mono <- correlated.genes.Mono[correlated.genes.Mono$name %in% TF.mouse,]
+TF.CG.Mono <- unique(correlated.genes.Mono[correlated.genes.Mono$name %in% TF.mouse,1])
+write.table(TF.CG.Mono,"./../result/Second_study/2nd_layer/Mono_TFcellFate.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 correlated.genes.Mono = correlated.genes.Mono[order(correlated.genes.Mono$value),]
 TF.CG.Regulator.Mono = unique(data.TF[data.TF[,2] %in% correlated.genes.Mono[,1],1])
-write.table(TF.CG.Regulator.Mono,"./../result/Second_study/2nd_layer/TFregulatorMono.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(TF.CG.Regulator.Mono,"./../result/Second_study/3rd_layer/Mono_TFregulator.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 TF.CG.Regulator.Target.Mono = data.TF[data.TF[,2] %in% correlated.genes.Mono[,1],c(1,2)]
-write.table(TF.CG.Regulator.Target.Mono,"./../result/Second_study/3rd_layer/TFtargetMono.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(TF.CG.Regulator.Target.Mono,"./../result/Second_study/4th_layer/Mono_TFtarget.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
