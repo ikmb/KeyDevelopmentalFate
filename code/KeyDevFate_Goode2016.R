@@ -150,12 +150,12 @@ exp.MAC = exp.data[MAC_set_index,]
 MAC.1stLayer = exp.MAC[order(-exp.MAC$MAC),]
 
 #Write first layer candidates in text files
-write.table(ESC.1stLayer,"./../result/First_study/1st_layer/1stLayer_ESC_candidates.csv",sep="\t",row.names = FALSE,col.names = FALSE)
-write.table(MES.1stLayer,"./../result/First_study/1st_layer/1stLayer_MES_candidates.csv",sep="\t",row.names = FALSE,col.names = FALSE)
-write.table(HB.1stLayer,"./../result/First_study/1st_layer/1stLayer_HB_candidates.csv",sep="\t",row.names = FALSE,col.names = FALSE)
-write.table(HE.1stLayer,"./../result/First_study/1st_layer/1stLayer_HE_candidates.csv",sep="\t",row.names = FALSE,col.names = FALSE)
-write.table(HP.1stLayer,"./../result/First_study/1st_layer/1stLayer_HP_candidates.csv",sep="\t",row.names = FALSE,col.names = FALSE)
-write.table(MAC.1stLayer,"./../result/First_study/1st_layer/1stLayer_MAC_candidates.csv",sep="\t",row.names = FALSE,col.names = FALSE)
+write.table(ESC.1stLayer,"./../result/First_study/1st_layer/1stLayer_ESC_candidates.csv",sep="\t",row.names = FALSE,col.names = TRUE)
+write.table(MES.1stLayer,"./../result/First_study/1st_layer/1stLayer_MES_candidates.csv",sep="\t",row.names = FALSE,col.names = TRUE)
+write.table(HB.1stLayer,"./../result/First_study/1st_layer/1stLayer_HB_candidates.csv",sep="\t",row.names = FALSE,col.names = TRUE)
+write.table(HE.1stLayer,"./../result/First_study/1st_layer/1stLayer_HE_candidates.csv",sep="\t",row.names = FALSE,col.names = TRUE)
+write.table(HP.1stLayer,"./../result/First_study/1st_layer/1stLayer_HP_candidates.csv",sep="\t",row.names = FALSE,col.names = TRUE)
+write.table(MAC.1stLayer,"./../result/First_study/1st_layer/1stLayer_MAC_candidates.csv",sep="\t",row.names = FALSE,col.names = TRUE)
 
 #TTRUST database as a reference for mouse TFs
 data.TF <- read.delim("./trrust_rawdata.mouse.tsv",sep = "\t",header = FALSE)
@@ -168,7 +168,11 @@ TF.HB <- HB.1stLayer[HB.1stLayer[,1] %in% TF.mouse,]
 TF.HE <- HE.1stLayer[HE.1stLayer[,1] %in% TF.mouse,]
 TF.HP <- HP.1stLayer[HP.1stLayer[,1] %in% TF.mouse,]
 TF.MAC <- MAC.1stLayer[MAC.1stLayer[,1] %in% TF.mouse,]
-
+df = list(TF.ESC[,1],TF.MES[,1],TF.HB[,1],TF.HE[,1],TF.HP[,1],TF.MAC[,1])
+names(df) = c("ESC","MES","HB","HE","HP","MAC")
+for(i in 1:6){
+  write.table(t(noquote(as.character(unlist(df[i])))),"./../result/First_study/1st_layer/TF_1stLayer_candidates.csv",sep = ", ",row.names = names(df)[i],quote = FALSE,col.names = FALSE,append = TRUE)
+}
 #Targets of the TFs in the database
 targets.ESC = character()
 targets.ESC = unique(as.character(data.TF[data.TF[,1] %in% TF.ESC[,1],2]))
@@ -251,7 +255,7 @@ for(i in 1:dim(exp.data)[1]){
   }
 }
 correlated.genes = correlated.genes[order(-correlated.genes$value),]
-write.table(correlated.genes,"./../result/First_study/2nd_layer/2ndLayer_candidates.csv",sep="\t",row.names = FALSE,col.names = FALSE)
+write.table(correlated.genes,"./../result/First_study/2nd_layer/2ndLayer_candidates.csv",sep="\t",row.names = FALSE,col.names = TRUE)
 exp.correlated.genes = exp.data[arr.index,]
 exp.correlated.genes.perfect = exp.data[arr.perfect,]
 png(filename = "./../result/First_study/2nd_layer/2ndLayer_correlated_pattern.png",width = 600,height = 600)
@@ -263,9 +267,10 @@ for(i in 1:14){
 }
 dev.off()
 #Identify the regulators of the SL genes and the intersected set with TF-specific ESC, MES, HB, HE, HP and MAC
-TF.CG <- correlated.genes[correlated.genes$name %in% TF.mouse,]
+TF.CG <- unique(correlated.genes[correlated.genes$name %in% TF.mouse,1])
+write.table(TF.CG,"./../result/First_study/2nd_layer/TFcellFate.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 TF.CG.Regulator = unique(data.TF[data.TF[,2] %in% correlated.genes[,1],1])
-write.table(TF.CG.Regulator,"./../result/First_study/2nd_layer/TFregulator.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(TF.CG.Regulator,"./../result/First_study/3rd_layer/TFregulator.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
 TF.CG.Regulator.ESC = unique(TF.CG.Regulator[TF.CG.Regulator %in% TF.ESC[,1]])
 TF.CG.Regulator.MES = unique(TF.CG.Regulator[TF.CG.Regulator %in% TF.MES[,1]])
 TF.CG.Regulator.HB = unique(TF.CG.Regulator[TF.CG.Regulator %in% TF.HB[,1]])
@@ -275,4 +280,4 @@ TF.CG.Regulator.MAC = unique(TF.CG.Regulator[TF.CG.Regulator %in% TF.MAC[,1]])
 
 #Third layer candidates
 TF.CG.Regulator.Target =data.TF[data.TF[,2] %in% correlated.genes[,1],c(1,2)]
-write.table(TF.CG.Regulator.Target,"./../result/First_study/3rd_layer/TFtarget.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
+write.table(TF.CG.Regulator.Target,"./../result/First_study/4th_layer/TFtarget.txt",col.names = FALSE,row.names = FALSE,quote = FALSE,sep = "\t")
